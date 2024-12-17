@@ -1,0 +1,75 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="water.css" />
+    <title>Drink Water</title>
+  </head>
+<body>
+
+    <h1>Water Drinking Tracker</h1>
+
+<div class="container" style="text-align:center;">
+<div class="rcorners2" style="text-align:center;">
+
+<span>weight(in kg)</span>
+<input type="text" id="input1"> 
+<br>
+<br>
+<span>activity</span>
+ <select id="leaveCode" name="leaveCode">
+  <option value="1">sedentary</option>
+  <option value="2">light active</option>
+  <option value="3">moderate active</option>
+  <option value="4">very active</option>
+  <option value="5">extremly active</option>
+</select>
+<br>
+<br>
+<span>climate</span>
+ <select id="leave" name="leave">
+  <option value="1">cold</option>
+  <option value="2">temperate</option>
+  <option value="3">tropical</option>
+ 
+</select>
+
+<br><br>
+<button onclick="add()">result :</button>
+<input type="text" id="input2" value="in litres">
+  <br><br>
+</div>
+</div>
+ <h1>Drink Water</h1>
+    <h3>Goal: <span id="goal">2</span> Liters</h3>
+    <div>
+      <button id="minus" class = "plus-minus">–</button>
+      <button id="plus" class = "plus-minus">+</button>
+    </div>
+    
+    <div class="cup">
+      <div class="remained" id="remained">
+        <span id="liters"></span>
+        <small>Remained</small>
+      </div>
+
+      <div class="percentage" id="percentage"></div>
+    </div>
+
+    <p class="text">Select how many glasses of water you have drank :</p>
+
+    <div id = "cups" class="cups">
+      <div class="cup cup-small">250 ml</div>
+      <div class="cup cup-small">250 ml</div>
+      <div class="cup cup-small">250 ml</div>
+      <div class="cup cup-small">250 ml</div>
+      <div class="cup cup-small">250 ml</div>
+      <div class="cup cup-small">250 ml</div>
+      <div class="cup cup-small">250 ml</div>
+      <div class="cup cup-small">250 ml</div>
+    </div>
+
+    <script src="water.js"></script>
+    <a class="button" href="alarm.html" style="vertical-align:middle"><span><b>SET Alarm </b></span></a>
+  </body>
+</html>

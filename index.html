@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Doctor - Welcome</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            background-image: url('tree.jpg'), url('spider.png'), url('pufferfish.gif');
+            background-size: 68%, 100px, 200px;
+            background-repeat: no-repeat;
+            background-position:  center, right bottom, left top  ;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            color: white;
+        }
+
+        .button:nth-child(1) {
+            background-color: #28a745;
+        }
+
+        .button:nth-child(1):hover {
+            background-color: #218838;
+            transform: scale(1.1);
+        }
+
+        .button:nth-child(2) {
+            background-color: #007bff;
+        }
+
+        .button:nth-child(2):hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .button:nth-child(3) {
+            background-color: #ffc107;
+        }
+
+        .button:nth-child(3):hover {
+            background-color: #e0a800;
+            transform: scale(1.1);
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            width: 60px;
+            height: 80px;
+            background-color: red;
+            border-radius: 50%;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .balloon:before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background-color: gray;
+            transform: translateX(-50%);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-50px) scale(1.1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-200px) scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Smart Doctor</h1>
+        <div class="buttons">
+            
+            <button class="button"><a href="Healthcare.html">Healthcare</a></button>
+            <button class="button"><a href="doctor.html">Disease Detector</a></button>
+            <button class="button"><a href="water.html">Water Drinking Tracker</a></button>
+        </div>
+    </div>
+    
+
+    <!-- Balloons -->
+    <script>
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            balloon.style.left = `${Math.random() * 100}vw`;
+            balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 60%)`;
+            balloon.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            document.body.appendChild(balloon);
+
+            setTimeout(() => {
+                balloon.remove();
+            }, 5000);
+        }
+
+        setInterval(createBalloon, 500);
+    </script>
+</body>
+</html>

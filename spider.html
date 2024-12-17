@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Man vs Clouds</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: lightblue;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid #000;
+        }
+        #restartButton {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <button id="restartButton">Restart</button>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const restartButton = document.getElementById('restartButton');
+
+        // Load images
+        const playerImg = new Image();
+        const cloudImg = new Image();
+        const bulletImg = new Image();
+
+        playerImg.src = 'player.png';  // Replace with actual player image path
+        cloudImg.src = 'cloud.png';    // Replace with actual cloud image path
+        bulletImg.src = 'bullet.png';  // Replace with actual bullet image path
+
+        // Game objects and variables
+        const player = {
+            x: canvas.width / 2 - 25,
+            y: canvas.height - 70,
+            width: 50,
+            height: 50,
+            speed: 7,
+            bullets: []
+        };
+
+        const clouds = [];
+        const cloudBullets = [];
+        let bucketFill = 0;
+        let cloudKillCount = 0;
+        let highScore = 0;
+        let bucketGoal = 10;
+        let gameOver = false;
+        let gameWon = false;
+
+        const bucket = {
+            x: 10,
+            y: canvas.height - 60,
+            width: 200,
+            height: 40,
+            fill: 0
+        };
+
+        const controls = {
+            left: false,
+            right: false,
+            shoot: false
+        };
+
+        // Event listeners for controls
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') controls.left = true;
+            if (e.key === 'ArrowRight') controls.right = true;
+            if (e.key === ' ') controls.shoot = true;
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowLeft') controls.left = false;
+            if (e.key === 'ArrowRight') controls.right = false;
+            if (e.key === ' ') controls.shoot = false;
+        });
+
+        restartButton.addEventListener('click', () => {
+            resetGame();
+            restartButton.style.display = 'none';
+            gameLoop();
+        });
+
+        // Function to spawn clouds
+        function spawnClouds() {
+            if (clouds.length < 5 + Math.floor(bucketFill / 10)) {
+                clouds.push({
+                    x: Math.random() * (canvas.width - 50),
+                    y: -50,
+                    width: 50,
+                    height: 50,
+                    hits: 0
+                });
+            }
+        }
+
+        // Update game state
+        function update() {
+            if (gameOver || gameWon) return;
+
+            // Player movement
+            if (controls.left) player.x -= player.speed;
+            if (controls.right) player.x += player.speed;
+            player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
+
+            // Shooting bullets
+            if (controls.shoot) {
+                player.bullets.push({
+                    x: player.x + player.width / 2 - 2.5,
+                    y: player.y,
+                    width: 5,
+                    height: 10
+                });
+            }
+
+            // Update bullets
+            player.bullets.forEach((bullet, index) => {
+                bullet.y -= 10;
+                if (bullet.y < 0) player.bullets.splice(index, 1);
+            });
+
+            // Update clouds
+            clouds.forEach((cloud, cIndex) => {
+                cloud.y += 2;
+
+                // Clouds shooting water bullets
+                if (Math.random() < 0.01) {
+                    cloudBullets.push({
+                        x: cloud.x + cloud.width / 2 - 5,
+                        y: cloud.y + cloud.height,
+                        width: 10,
+                        height: 10
+                    });
+                }
+
+                // Reset cloud to top if it reaches bottom
+                if (cloud.y > canvas.height) {
+                    cloud.y = -50;
+                    cloud.x = Math.random() * (canvas.width - 50);
+                }
+
+                // Bullet collision detection
+                player.bullets.forEach((bullet, bIndex) => {
+                    if (
+                        bullet.x < cloud.x + cloud.width &&
+                        bullet.x + bullet.width > cloud.x &&
+                        bullet.y < cloud.y + cloud.height &&
+                        bullet.y + bullet.height > cloud.y
+                    ) {
+                        player.bullets.splice(bIndex, 1);
+                        cloud.hits++;
+
+                        if (cloud.hits >= 3) {
+                            clouds.splice(cIndex, 1);
+                            cloudKillCount++;
+                            bucket.fill += 20;
+                            if (bucket.fill >= bucket.width) {
+                                bucketFill++;
+                                bucket.fill = 0;
+                                bucketGoal += 5;
+                                highScore = Math.max(highScore, bucketFill);
+
+                                if (bucketFill >= 10) {
+                                    gameWon = true;
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+
+            // Update cloud bullets
+            cloudBullets.forEach((bullet, index) => {
+                bullet.y += 5;
+                if (
+                    bullet.x < player.x + player.width &&
+                    bullet.x + bullet.width > player.x &&
+                    bullet.y < player.y + player.height &&
+                    bullet.y + bullet.height > player.y
+                ) {
+                    gameOver = true;
+                }
+
+                if (bullet.y > canvas.height) {
+                    cloudBullets.splice(index, 1);
+                }
+            });
+
+            spawnClouds();
+        }
+
+        // Draw game elements
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw player image
+            ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+
+            // Draw bullets
+            player.bullets.forEach(bullet => {
+                ctx.drawImage(bulletImg, bullet.x, bullet.y, bullet.width, bullet.height);
+            });
+
+            // Draw clouds
+            clouds.forEach(cloud => {
+                ctx.drawImage(cloudImg, cloud.x, cloud.y, cloud.width, cloud.height);
+            });
+
+            // Draw cloud bullets
+            cloudBullets.forEach(bullet => {
+                ctx.fillStyle = 'aqua';
+                ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+            });
+
+            // Draw bucket
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(bucket.x, bucket.y, bucket.fill, bucket.height);
+            ctx.strokeStyle = 'black';
+            ctx.strokeRect(bucket.x, bucket.y, bucket.width, bucket.height);
+
+            // Draw text
+            ctx.fillStyle = 'black';
+            ctx.font = '20px Arial';
+            ctx.fillText(`Bucket Level: ${bucketFill}`, 10, 30);
+            ctx.fillText(`Clouds Killed: ${cloudKillCount}`, 10, 50);
+            ctx.fillText(`High Score: ${highScore}`, 10, 70);
+            ctx.fillText(`Goal: ${bucketGoal}`, 10, 90);
+
+            if (gameOver) {
+                ctx.fillStyle = 'red';
+                ctx.font = '30px Arial';
+                ctx.fillText('Game Over!', canvas.width / 2 - 80, canvas.height / 2);
+                restartButton.style.display = 'block';
+            }
+
+            if (gameWon) {
+                ctx.fillStyle = 'green';
+                ctx.font = '30px Arial';
+                ctx.fillText('You Win!', canvas.width / 2 - 60, canvas.height / 2);
+                restartButton.style.display = 'block';
+                drawCelebration();
+            }
+        }
+
+        // Celebration animation
+        function drawCelebration() {
+            for (let i = 0; i < 100; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const size = Math.random() * 5 + 2;
+                ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                ctx.fillRect(x, y, size, size);
+            }
+        }
+
+        // Reset the game state
+        function resetGame() {
+            player.x = canvas.width / 2 - 25;
+            player.bullets = [];
+            clouds.length = 0;
+            cloudBullets.length = 0;
+            bucket.fill = 0;
+            bucketFill = 0;
+            cloudKillCount = 0;
+            bucketGoal = 10;
+            gameOver = false;
+            gameWon = false;
+        }
+
+        // Main game loop
+        function gameLoop() {
+            update();
+            draw();
+            if (!gameOver && !gameWon) requestAnimationFrame(gameLoop);
+        }
+
+        // Start game
+        gameLoop();
+    </script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Selector</title>
+    <style>
+        body {
+            font-family: 'Verdana', sans-serif;
+            margin: 20px;
+            background-color: #f4f8fc;
+            color: #333;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        select {
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+            max-width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+        }
+        button {
+            font-size: 16px;
+            padding: 10px 15px;
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #003d80;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .highlight {
+            color: red;
+            font-weight: bold;
+        }
+        .doctor-image {
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
+            margin-top: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            animation: moveDoctor 3s infinite alternate;
+        }
+        @keyframes moveDoctor {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Symptom Selector</h1>
+    <label for="symptomSelect">Select Symptoms:</label>
+    <select id="symptomSelect" multiple size="10">
+        <!-- Options will be populated dynamically -->
+    </select>
+    <button onclick="findDisease()">Find Disease</button>
+    <a href="spider.html"><img id="doctorImage" class="doctor-image" src="doctor.jpg" alt="Doctor" />
+    <div id="result"></a></div>
+
+    <script>
+        // JavaScript database of symptoms with assigned numbers
+        const symptoms = [
+            "Cough", "Fever", "Runny Nose", "Headache", "Fatigue", 
+            "Sore Throat", "Nausea", "Vomiting", "Diarrhea", "Chills", 
+            "Muscle Aches", "Dizziness", "Shortness of Breath", "Chest Pain", "Sweating", 
+            "Itchy Skin", "Rash", "Swelling", "Loss of Appetite", "Blurred Vision", 
+            "Dry Eyes", "Hair Loss", "Frequent Urination", "Abdominal Pain", "Back Pain", 
+            "Joint Pain", "Numbness", "Tingling", "Weight Loss", "Weight Gain", 
+            "Fainting", "Palpitations", "Difficulty Swallowing", "Bloating", "Constipation"
+        ];
+
+        // Diseases and their symptom number arrays
+        const diseases = [
+            { name: "Common Cold", symptoms: [1, 3, 6] },
+            { name: "Flu", symptoms: [1, 2, 5, 10] },
+            { name: "Food Poisoning", symptoms: [7, 8, 9] },
+            { name: "Allergic Reaction", symptoms: [3, 16, 17] },
+            { name: "Migraine", symptoms: [4, 5, 27] },
+            { name: "Asthma", symptoms: [13, 32] },
+            { name: "Diabetes", symptoms: [23, 29] },
+            { name: "COVID-19", symptoms: [2, 6, 14] },
+            { name: "Pneumonia", symptoms: [1, 2, 13] },
+            { name: "Bronchitis", symptoms: [1, 13, 14] },
+            { name: "Tuberculosis", symptoms: [1, 2, 13, 18] },
+            { name: "Gastroenteritis", symptoms: [7, 8, 9] },
+            { name: "Strep Throat", symptoms: [6, 2, 5] },
+            { name: "Sinusitis", symptoms: [3, 4, 14] },
+            { name: "Hepatitis", symptoms: [2, 18, 29] },
+            { name: "Anemia", symptoms: [5, 30, 29] },
+            { name: "Arthritis", symptoms: [25, 26, 19] },
+            { name: "Depression", symptoms: [5, 19, 30] },
+            { name: "Irritable Bowel Syndrome (IBS)", symptoms: [9, 33, 35] },
+            { name: "Dehydration", symptoms: [2, 12, 30] }
+        ];
+
+        // Populate the select list
+        const symptomSelect = document.getElementById("symptomSelect");
+        symptoms.forEach((symptom, index) => {
+            const option = document.createElement("option");
+            option.value = index + 1; // Assign numbers starting from 1
+            option.textContent = symptom;
+            symptomSelect.appendChild(option);
+        });
+
+        // Function to find disease based on selected symptoms
+        function findDisease() {
+            const selectedOptions = Array.from(symptomSelect.selectedOptions);
+            const selectedSymptoms = selectedOptions.map(option => parseInt(option.value));
+
+            let resultText = "Matching Diseases: ";
+            let matchingDiseases = [];
+            let maxMatch = 0;
+
+            diseases.forEach(disease => {
+                const matchCount = selectedSymptoms.filter(symptom => disease.symptoms.includes(symptom)).length;
+                if (matchCount > 0) {
+                    matchingDiseases.push({ name: disease.name, count: matchCount });
+                    if (matchCount > maxMatch) {
+                        maxMatch = matchCount;
+                    }
+                }
+            });
+
+            if (matchingDiseases.length > 0) {
+                resultText += matchingDiseases
+                    .map(d => d.count === maxMatch ? `<span class='highlight'>${d.name} (matched ${d.count} symptom(s))</span>` : `${d.name} (matched ${d.count} symptom(s))`)
+                    .join(", ");
+            } else {
+                resultText = "No matching disease found.";
+            }
+
+            document.getElementById("result").innerHTML = resultText;
+        }
+    </script>
+</body>
+</html>

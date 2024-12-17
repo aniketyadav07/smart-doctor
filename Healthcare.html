@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Prevention Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            animation: backgroundAnimation 10s infinite alternate;
+            color: #333;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            }
+            50% {
+                background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            }
+            100% {
+                background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);
+            }
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #444;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .disease-card {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .disease-card h2 {
+            color: #f15a29;
+        }
+
+        .disease-card ul {
+            margin: 0;
+            padding: 0 0 0 20px;
+        }
+
+        .disease-card li {
+            margin: 5px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Disease Prevention Blog</h1>
+    </header>
+    <div class="container">
+        <div class="disease-card">
+            <h2>Common Cold</h2>
+            <p><strong>Symptoms:</strong> Sneezing, Runny nose, Sore throat</p>
+            <p><strong>Prevention:</strong> Wash hands, avoid close contact with sick people, use tissues.</p>
+            <p><strong>Cure:</strong> Rest, hydration, over-the-counter medicine for symptoms.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Flu</h2>
+            <p><strong>Symptoms:</strong> Fever, Chills, Body aches, Fatigue</p>
+            <p><strong>Prevention:</strong> Get vaccinated, wash hands, avoid crowded places during outbreaks.</p>
+            <p><strong>Cure:</strong> Antiviral medication, rest, hydration.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Food Poisoning</h2>
+            <p><strong>Symptoms:</strong> Nausea, Vomiting, Diarrhea</p>
+            <p><strong>Prevention:</strong> Ensure proper food hygiene, avoid expired food, wash fruits and vegetables.</p>
+            <p><strong>Cure:</strong> Hydration, rest, medical attention if severe.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Allergic Reaction</h2>
+            <p><strong>Symptoms:</strong> Itching, Rash, Swelling</p>
+            <p><strong>Prevention:</strong> Avoid allergens, carry antihistamines, consult an allergist.</p>
+            <p><strong>Cure:</strong> Antihistamines, epinephrine for severe cases, medical attention.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Migraine</h2>
+            <p><strong>Symptoms:</strong> Headache, Nausea, Sensitivity to light</p>
+            <p><strong>Prevention:</strong> Manage stress, avoid triggers, maintain regular sleep patterns.</p>
+            <p><strong>Cure:</strong> Pain relievers, prescribed medication, rest in a dark room.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Asthma</h2>
+            <p><strong>Symptoms:</strong> Shortness of breath, Wheezing</p>
+            <p><strong>Prevention:</strong> Avoid triggers, use preventive inhalers, regular check-ups.</p>
+            <p><strong>Cure:</strong> Inhalers, bronchodilators, medical management.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Diabetes</h2>
+            <p><strong>Symptoms:</strong> Increased thirst, Frequent urination, Fatigue</p>
+            <p><strong>Prevention:</strong> Maintain a healthy diet, exercise regularly, monitor blood sugar levels.</p>
+            <p><strong>Cure:</strong> Insulin therapy, medication, lifestyle changes.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>COVID-19</h2>
+            <p><strong>Symptoms:</strong> Fever, Cough, Shortness of breath</p>
+            <p><strong>Prevention:</strong> Wear masks, practice social distancing, get vaccinated.</p>
+            <p><strong>Cure:</strong> Rest, supportive care, antiviral treatments.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Pneumonia</h2>
+            <p><strong>Symptoms:</strong> Cough, Fever, Chest pain</p>
+            <p><strong>Prevention:</strong> Get vaccinated, avoid smoking, practice good hygiene.</p>
+            <p><strong>Cure:</strong> Antibiotics, rest, fluids.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Bronchitis</h2>
+            <p><strong>Symptoms:</strong> Cough, Wheezing, Chest discomfort</p>
+            <p><strong>Prevention:</strong> Avoid smoking, reduce exposure to pollutants, practice good hygiene.</p>
+            <p><strong>Cure:</strong> Rest, hydration, medications for symptoms.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Tuberculosis</h2>
+            <p><strong>Symptoms:</strong> Cough, Fever, Night sweats</p>
+            <p><strong>Prevention:</strong> Vaccination, regular testing, avoid close contact with infected individuals.</p>
+            <p><strong>Cure:</strong> Long-term antibiotics, medical supervision.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Gastroenteritis</h2>
+            <p><strong>Symptoms:</strong> Diarrhea, Vomiting, Stomach cramps</p>
+            <p><strong>Prevention:</strong> Maintain food hygiene, drink clean water, wash hands regularly.</p>
+            <p><strong>Cure:</strong> Hydration, rest, electrolyte solutions.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Strep Throat</h2>
+            <p><strong>Symptoms:</strong> Sore throat, Fever, Swollen lymph nodes</p>
+            <p><strong>Prevention:</strong> Avoid sharing personal items, maintain good hygiene, cover mouth while sneezing.</p>
+            <p><strong>Cure:</strong> Antibiotics, rest, hydration.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Sinusitis</h2>
+            <p><strong>Symptoms:</strong> Nasal congestion, Headache, Facial pain</p>
+            <p><strong>Prevention:</strong> Avoid allergens, use humidifiers, stay hydrated.</p>
+            <p><strong>Cure:</strong> Decongestants, rest, saline nasal sprays.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Hepatitis</h2>
+            <p><strong>Symptoms:</strong> Fatigue, Jaundice, Abdominal pain</p>
+            <p><strong>Prevention:</strong> Vaccination, avoid unsterile needles, practice safe food handling.</p>
+            <p><strong>Cure:</strong> Antiviral drugs, lifestyle changes, medical management.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Anemia</h2>
+            <p><strong>Symptoms:</strong> Fatigue, Pale skin, Dizziness</p>
+            <p><strong>Prevention:</strong> Eat iron-rich foods, take supplements if needed, regular check-ups.</p>
+            <p><strong>Cure:</strong> Iron supplements, treating underlying causes, dietary adjustments.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Arthritis</h2>
+            <p><strong>Symptoms:</strong> Joint pain, Swelling, Stiffness</p>
+            <p><strong>Prevention:</strong> Maintain a healthy weight, regular exercise, avoid joint injuries.</p>
+            <p><strong>Cure:</strong> Pain relievers, physical therapy, lifestyle changes.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Depression</h2>
+            <p><strong>Symptoms:</strong> Persistent sadness, Fatigue, Loss of interest</p>
+            <p><strong>Prevention:</strong> Seek therapy, maintain social connections, manage stress.</p>
+            <p><strong>Cure:</strong> Counseling, medication, lifestyle changes.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Irritable Bowel Syndrome (IBS)</h2>
+            <p><strong>Symptoms:</strong> Abdominal pain, Bloating, Diarrhea or constipation</p>
+            <p><strong>Prevention:</strong> Avoid trigger foods, manage stress, eat a balanced diet.</p>
+            <p><strong>Cure:</strong> Dietary adjustments, medication, stress management.</p>
+        </div>
+
+        <div class="disease-card">
+            <h2>Dehydration</h2>
+            <p><strong>Symptoms:</strong> Thirst, Dry mouth, Dizziness</p>
+            <p><strong>Prevention:</strong> Drink sufficient water, avoid excessive heat exposure, eat water-rich foods.</p>
+            <p><strong>Cure:</strong> Rehydration, electrolyte solutions, medical attention if severe.</p>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Disease Prevention Blog</p>
+    </footer>
+</body>
+</html>
